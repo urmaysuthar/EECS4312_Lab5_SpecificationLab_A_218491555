@@ -1,6 +1,121 @@
-## Student Name:
-## Student ID: 
+## Student Name: Urmay Suthar
+## Student ID: 218491555
 
+Prompt 1: "so i have forked a github repository. how do i open this in my vscode sync'd in a way that i can commit directly to THIS repository through my vscode"
+LLM Response 1: "so i have forked a github repository. how do i open this in my vscode sync'd in a way that i can commit directly to THIS repository through my vscode"
+
+--------------------------------------------------
+Prompt 2: "Function takes input a list of existing calendar events for a given day:
+events: List of dicts with keys {"start": "HH:MM", "end": "HH:MM"}
+events: List[Dict[str, str]],
+
+Function also takes in a desired meeting duration.
+meeting_duration: Desired meeting length in minutes
+meeting_duration: int,
+
+Goal is to return a list of valid start times at which the meeting could be scheduled. But we’re being careful by respecting typical working hours which is about 8 am to 5 pm generally. In this case it would be a string 08:00 to 17:00. So outside these times, it should be impossible to suggest a timeslot. If no suitable time slots are available, function should return an empty list.
+
+Returns:
+        List of valid start times as "HH:MM" sorted ascending
+
+
+Time in standard string format “09:30”
+meeting_duration: Desired meeting length in minutes
+
+day: str
+day: Three-letter day abbreviation (e.g., "Mon", "Tue", ... "Fri")
+
+so given this, we should make sure there’s no way to book an already booked time slot. Meaning if a time slot is unavailable to book. It should not be returned in our list of available time slots (what the function returns)
+
+before we step into code, lets brainstorm and think what other things we may need to watch out for?
+
+"
+LLM Response 2: "Function takes input a list of existing calendar events for a given day:
+events: List of dicts with keys {"start": "HH:MM", "end": "HH:MM"}
+events: List[Dict[str, str]],
+
+Function also takes in a desired meeting duration.
+meeting_duration: Desired meeting length in minutes
+meeting_duration: int,
+
+Goal is to return a list of valid start times at which the meeting could be scheduled. But we’re being careful by respecting typical working hours which is about 8 am to 5 pm generally. In this case it would be a string 08:00 to 17:00. So outside these times, it should be impossible to suggest a timeslot. If no suitable time slots are available, function should return an empty list.
+
+Returns:
+        List of valid start times as "HH:MM" sorted ascending
+
+
+Time in standard string format “09:30”
+meeting_duration: Desired meeting length in minutes
+
+day: str
+day: Three-letter day abbreviation (e.g., "Mon", "Tue", ... "Fri")
+
+so given this, we should make sure there’s no way to book an already booked time slot. Meaning if a time slot is unavailable to book. It should not be returned in our list of available time slots (what the function returns)
+
+before we step into code, lets brainstorm and think what other things we may need to watch out for?
+
+ "
+--------------------------------------------------
+Prompt 1: "so if im not wrong, events will look something like this
+
+events = [
+        {"start": "13:00", "end": "14:00"},
+        {"start": "09:30", "end": "10:00"},
+        {"start": "11:00", "end": "12:00"},
+    ]
+
+why does it matter if its sorted or not? according to the timestamps
+hm but you might be right with merging time events
+
+honestly, im looking at this and you're right. in returning a list of valid start times it best makes sense to do 15min intervals. Because lets be honest, no one really wants to set a meeting at 12:12 pm...
+because its not stated in the assignment, and i believe we are the ones who should think logically about this requirement.
+
+also yeah the basic checks make sense. like no 0 length meetings, no meetings overlapping, no meeting greater than 9 hours if empty calendar. make sure meetings do not end past 17:00
+
+"
+LLM Response 1: "so if im not wrong, events will look something like this
+
+events = [
+        {"start": "13:00", "end": "14:00"},
+        {"start": "09:30", "end": "10:00"},
+        {"start": "11:00", "end": "12:00"},
+    ]
+
+why does it matter if its sorted or not? according to the timestamps
+hm but you might be right with merging time events
+
+honestly, im looking at this and you're right. in returning a list of valid start times it best makes sense to do 15min intervals. Because lets be honest, no one really wants to set a meeting at 12:12 pm...
+because its not stated in the assignment, and i believe we are the ones who should think logically about this requirement.
+
+also yeah the basic checks make sense. like no 0 length meetings, no meetings overlapping, no meeting greater than 9 hours if empty calendar. make sure meetings do not end past 17:00
+
+"
+
+--------------------------------------------------
+Prompt 2: "Copy paste your question"
+LLM Response 2: "Copy paste LLMs response"
+--------------------------------------------------
+Prompt 1: "Copy paste your question"
+LLM Response 1: "Copy paste LLMs response"
+
+--------------------------------------------------
+Prompt 2: "Copy paste your question"
+LLM Response 2: "Copy paste LLMs response"
+--------------------------------------------------
+Prompt 1: "Copy paste your question"
+LLM Response 1: "Copy paste LLMs response"
+
+--------------------------------------------------
+Prompt 2: "Copy paste your question"
+LLM Response 2: "Copy paste LLMs response"
+--------------------------------------------------
+Prompt 1: "Copy paste your question"
+LLM Response 1: "Copy paste LLMs response"
+
+--------------------------------------------------
+Prompt 2: "Copy paste your question"
+LLM Response 2: "Copy paste LLMs response"
+--------------------------------------------------
 Prompt 1: "Copy paste your question"
 LLM Response 1: "Copy paste LLMs response"
 
