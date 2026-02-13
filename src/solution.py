@@ -1,14 +1,8 @@
 ## Student Name: Urmay Suthar
 ## Student ID: 218491555
 
-"""
-Stub file for the meeting slot suggestion exercise.
-
-Implement the function `suggest_slots` to return a list of valid meeting start times
-on a given day, taking into account working hours, and possible specific constraints. See the lab handout
-for full requirements.
-"""
 from typing import List, Dict
+from datetime import date
 
 def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str) -> List[str]:
     WORK_START = 9 * 60   # 09:00
@@ -18,10 +12,24 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
     LUNCH_START = 12 * 60
     LUNCH_END = 13 * 60
 
+    # New requirement: Fridays must not start at or after 15:00
+    FRIDAY_CUTOFF = 15 * 60  # 15:00
+
     if not isinstance(meeting_duration, int) or meeting_duration <= 0:
         return []
     if meeting_duration > (WORK_END - WORK_START):
         return []
+
+    def is_friday(day_str: str) -> bool:
+        # Accept ISO date strings like "2026-02-01"
+        try:
+            return date.fromisoformat(day_str).weekday() == 4  # Mon=0 ... Fri=4
+        except Exception:
+            pass
+        # Accept abbreviations if ever used
+        return day_str.strip().lower() in {"fri", "friday"}
+
+    friday_rule = is_friday(day)
 
     def to_minutes(t: str) -> int:
         hh, mm = t.split(":")
@@ -64,7 +72,6 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
                 merged.append([s, en])
 
     def overlaps_with_event(meet_start: int, meet_end: int, ev_start: int, ev_end: int) -> bool:
-        # Match public test behavior:
         # meet_end == ev_start counts as conflict
         # meet_start == ev_end is allowed
         return (meet_start < ev_end) and (meet_end >= ev_start)
@@ -78,6 +85,10 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
         t += (STEP_MINUTES - rem)
 
     while t <= latest_start:
+        # Friday rule: meetings must NOT start at 15:00 or later
+        if friday_rule and t >= FRIDAY_CUTOFF:
+            break  # times only increase, so we can stop early
+
         # lunch constraint blocks START times only
         if LUNCH_START <= t < LUNCH_END:
             t += STEP_MINUTES
@@ -97,4 +108,3 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
         t += STEP_MINUTES
 
     return results
-
